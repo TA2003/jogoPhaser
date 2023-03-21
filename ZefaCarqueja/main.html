@@ -45,17 +45,27 @@ function preload ()
     this.load.image('p1', 'assets/player1.png');
     this.load.image('p2', 'assets/player2.png');
     this.load.image('platforms', 'assets/chao.png');
+    this.load.image('sky', 'assets/stands.png');
+    this.load.image('campo', 'assets/campoo.png');
     
 }
 
 function create ()
 {
+
+    //Background do jogo
+    this.add.image(500, 139, 'sky');
+    
+    //campo
+    this.add.image(500, 450, 'campo');
+
+
      //  The platforms group contains the ground and the 2 ledges we can jump on
      platforms = this.physics.add.staticGroup();
 
 //  Here we create the ground.
 //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-platforms.create(400, 568, 'platforms').setScale(2).refreshBody();
+platforms.create(400, 650, 'platforms').setScale(2).refreshBody();
    
 
     //Cria os jogadores
