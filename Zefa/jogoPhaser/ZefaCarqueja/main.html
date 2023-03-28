@@ -47,6 +47,8 @@ function preload ()
     this.load.image('platforms', 'assets/chao.png');
     this.load.image('sky', 'assets/stands.png');
     this.load.image('campo', 'assets/campoo.png');
+    this.load.image('baliza1', 'assets/baliza.png');
+    this.load.image('baliza2', 'assets/baliza1.png');
     
 }
 
@@ -63,8 +65,8 @@ function create ()
      //  The platforms group contains the ground and the 2 ledges we can jump on
      platforms = this.physics.add.staticGroup();
 
-//  Here we create the ground.
-//  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+    //  Here we create the ground.
+    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
 platforms.create(400, 650, 'platforms').setScale(2).refreshBody();
    
 
@@ -82,6 +84,17 @@ platforms.create(400, 650, 'platforms').setScale(2).refreshBody();
     bola.setCollideWorldBounds(true);
     bola.setBounce(0.5);
    
+    
+    // Cria a baliza 1
+    baliza1 = this.physics.add.sprite(50, 300, 'baliza1');
+    baliza1.setCollideWorldBounds(true);
+    baliza1.setImmovable(true); // impede que a bola empurre a baliza
+
+    // Cria a baliza 2
+    baliza2 = this.physics.add.sprite(950, 300, 'baliza2');
+    baliza2.setCollideWorldBounds(true);
+    baliza2.setImmovable(true); // impede que a bola empurre a baliza
+
     cursors = this.input.keyboard.createCursorKeys();
     
     //Adicione limites do mundo
@@ -175,7 +188,7 @@ function update ()
         bola.setVelocityY(-400);
     }
   
-
+    
        
     
 
