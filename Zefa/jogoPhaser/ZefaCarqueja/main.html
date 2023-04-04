@@ -52,7 +52,7 @@ function preload ()
     this.load.image('campo', 'assets/campoo.png');
     this.load.image('baliza', 'assets/baliza.png');
     this.load.image('baliza1', 'assets/baliza1.png');
-    //this.load.audio('music', 'assets/music.mp3');
+    this.load.audio('music', 'assets/music.mp3');
    
 
     
@@ -64,14 +64,16 @@ function create ()
 
     //Criar a Música Louca
 
-    //this.music = this.sound.add()
+    this.music = this.sound.add()
     //music.play();
     //this.music.setVolume(0.5);
     //this.music.setLoop(true);
+    
+
 
     //Adicionar a Música Louca
 
-    //this.music = this.sound.add('music');
+    this.music = this.sound.add('music');
 
 
     //Background do jogo
@@ -141,6 +143,7 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
+    this.physics.add.collider(music.play());
 
 
     this.anims.create({
