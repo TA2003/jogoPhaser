@@ -64,16 +64,16 @@ function create ()
 
     //Criar a Música Louca
 
-    this.music = this.sound.add()
-    //music.play();
-    //this.music.setVolume(0.5);
-    //this.music.setLoop(true);
+    var music = this.sound.add('music', { loop: true });
+    music.play();
+    //this.music.setVolume = 0.5;
+    //this.music.Loop = true;
     
 
 
     //Adicionar a Música Louca
 
-    this.music = this.sound.add('music');
+    //this.music = this.sound.add('music');
 
 
     //Background do jogo
@@ -119,14 +119,6 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     b2 = this.physics.add.sprite(50, 00, 'baliza1');
     b2.setCollideWorldBounds(true);
 
-    
-
- 
-
-
-   
-    
-
 
     cursors = this.input.keyboard.createCursorKeys();
     
@@ -143,7 +135,7 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
-    this.physics.add.collider(music.play());
+    //this.physics.add.collider(music.play());
 
 
     this.anims.create({
