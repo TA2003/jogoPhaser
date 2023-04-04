@@ -37,6 +37,8 @@ var player1;
 var player2;
 var cursors;
 var platforms;
+var b1;
+var b2;
 
 var game = new Phaser.Game(config);
 
@@ -48,6 +50,9 @@ function preload ()
     this.load.image('plataforma', 'assets/chao.png');
     this.load.image('sky', 'assets/stands.png');
     this.load.image('campo', 'assets/campoo.png');
+    this.load.image('baliza', 'assets/baliza.png');
+    this.load.image('baliza1', 'assets/baliza1.png');
+    //this.load.audio('music', 'assets/music.mp3');
    
 
     
@@ -56,6 +61,18 @@ function preload ()
 
 function create ()
 {
+
+    //Criar a Música Louca
+
+    //this.music = this.sound.add()
+    //music.play();
+    //this.music.setVolume(0.5);
+    //this.music.setLoop(true);
+
+    //Adicionar a Música Louca
+
+    //this.music = this.sound.add('music');
+
 
     //Background do jogo
     this.add.image(500, 139, 'sky');
@@ -88,6 +105,20 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     ball.setCollideWorldBounds(true);
     ball.setBounce(0.9);
 
+    //Cria as balizas
+
+    //Baliza Direita
+
+    b1 = this.physics.add.sprite(950, 00, 'baliza');
+    b1.setCollideWorldBounds(true);
+
+    //Baliza Esquerda
+
+    b2 = this.physics.add.sprite(50, 00, 'baliza1');
+    b2.setCollideWorldBounds(true);
+
+    
+
  
 
 
@@ -105,6 +136,8 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     this.physics.add.collider(player2, platforms);
     this.physics.add.collider(player1, platforms);
     this.physics.add.collider(ball, platforms);
+    this.physics.add.collider(b1, platforms);
+    this.physics.add.collider(b2, platforms);
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
