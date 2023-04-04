@@ -32,9 +32,9 @@ var config = {
     }
 };
 
-var bola;
-var p1;
-var p2;
+var ball;
+var player1;
+var player2;
 var cursors;
 var platforms;
 
@@ -45,10 +45,10 @@ function preload ()
     this.load.image('bola', 'assets/bola.png');
     this.load.spritesheet('p1', 'assets/player1.png',{frameWidth: 86,frameHeight: 104});
     this.load.spritesheet('p2', 'assets/player2.png',{frameWidth: 86,frameHeight: 104});
-    this.load.image('platforms', 'assets/chao.png');
+    this.load.image('plataforma', 'assets/chao.png');
     this.load.image('sky', 'assets/stands.png');
     this.load.image('campo', 'assets/campoo.png');
-    this.load.image('baliza', 'assets/baliza.png');
+   
 
     
     
@@ -71,27 +71,24 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-platforms.create(400, 650, 'platforms').setScale(2).refreshBody();
+platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
    
 
     //Cria os jogadores
-    p1 = this.physics.add.sprite(250, 300 , 'p1');
-    p1.setCollideWorldBounds(true);
-    p1.setBounce(0.3);
+    player1 = this.physics.add.sprite(250, 300 , 'p1');
+    player1.setCollideWorldBounds(true);
+    player1.setBounce(0.3);
 
-    p2 = this.physics.add.sprite(750, 300 , 'p2');
-    p2.setCollideWorldBounds(true);
-    p2.setBounce(0.3);
+    player2 = this.physics.add.sprite(750, 300 , 'p2');
+    player2.setCollideWorldBounds(true);
+    player2.setBounce(0.3);
 
        // Cria a bola
-    bola = this.physics.add.sprite(500, 300, 'bola');
-    bola.setCollideWorldBounds(true);
-    bola.setBounce(0.9);
+    ball = this.physics.add.sprite(500, 300, 'bola');
+    ball.setCollideWorldBounds(true);
+    ball.setBounce(0.9);
 
-    // Cria a baliza 1 no canto inferior esquerdo
-baliza = this.physics.add.sprite(10, 300, 'baliza');
-baliza.setCollideWorldBounds(true);
-baliza.setImmovable(true);
+ 
 
 
    
@@ -105,13 +102,12 @@ baliza.setImmovable(true);
     
 
     //  Collide the player and the stars with the platforms
-    this.physics.add.collider(p2, platforms);
-    this.physics.add.collider(p1, platforms);
-    this.physics.add.collider(bola, platforms);
-    this.physics.add.collider(baliza, platforms);
-    this.physics.add.collider(p1,p2);
-    this.physics.add.collider(p1,bola);
-    this.physics.add.collider(p2,bola);
+    this.physics.add.collider(player2, platforms);
+    this.physics.add.collider(player1, platforms);
+    this.physics.add.collider(ball, platforms);
+    this.physics.add.collider(player1,player2);
+    this.physics.add.collider(player1,ball);
+    this.physics.add.collider(player2,ball);
 
 
     this.anims.create({
@@ -172,24 +168,24 @@ function update ()
   // Verifique as teclas pressionadas para o jogador 1
   
   if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
-        p1.setVelocityX(-300);
-        p1.anims.play('left1', true);
+        player1.setVelocityX(-300);
+        player1.anims.play('left1', true);
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
-        p1.setVelocityX(300);
-        p1.anims.play('right1', true);
+        player1.setVelocityX(300);
+        player1.anims.play('right1', true);
     }
     else {
-        p1.setVelocityX(0);
-        p1.anims.play('turn1');
+        player1.setVelocityX(0);
+        player1.anims.play('turn1');
     }
-    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown  && p1.body.onFloor()) {
-        p1.setVelocityY(-400);
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown  && player1.body.onFloor()) {
+        player1.setVelocityY(-400);
     }
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F).isDown) {
-        p1.anims.play('pontape1', true);
-        if (Phaser.Geom.Intersects.RectangleToRectangle(p1.getBounds(), bola.getBounds()) && p1.anims.currentAnim.key === 'pontape1') {
-        bola.setVelocityY(-500);
+        player1.anims.play('pontape1', true);
+        if (Phaser.Geom.Intersects.RectangleToRectangle(player1.getBounds(), ball.getBounds()) && player1.anims.currentAnim.key === 'pontape1') {
+        ball.setVelocityY(-500);
     }
   
     
@@ -200,24 +196,24 @@ function update ()
     // jogador 2
     
     if (cursors.left.isDown) {
-        p2.setVelocityX(-300);
-        p2.anims.play('left2', true);
+        player2.setVelocityX(-300);
+        player2.anims.play('left2', true);
     }
     else if (cursors.right.isDown) {
-        p2.setVelocityX(300);
-        p2.anims.play('right2', true);
+        player2.setVelocityX(300);
+        player2.anims.play('right2', true);
     }
     else {
-        p2.setVelocityX(0);
-        p2.anims.play('turn2');
+        player2.setVelocityX(0);
+        player2.anims.play('turn2');
     }
-    if (cursors.up.isDown && p2.body.onFloor()) {
-        p2.setVelocityY(-400);
+    if (cursors.up.isDown && player2.body.onFloor()) {
+        player2.setVelocityY(-400);
     }
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).isDown) {
-        p2.anims.play('pontape2', true);
-        if (Phaser.Geom.Intersects.RectangleToRectangle(p2.getBounds(), bola.getBounds()) && p2.anims.currentAnim.key === 'pontape2') {
-        bola.setVelocityY(-500);
+        player2.anims.play('pontape2', true);
+        if (Phaser.Geom.Intersects.RectangleToRectangle(player2.getBounds(), ball.getBounds()) && player2.anims.currentAnim.key === 'pontape2') {
+        ball.setVelocityY(-500);
     }
        
    
