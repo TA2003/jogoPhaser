@@ -39,6 +39,8 @@ var cursors;
 var platforms;
 var b1;
 var b2;
+var gols_time_1 = 0
+var gols_time_2 = 0
 
 var game = new Phaser.Game(config);
 
@@ -53,10 +55,8 @@ function preload ()
     this.load.image('baliza', 'assets/baliza.png');
     this.load.image('baliza1', 'assets/baliza1.png');
     this.load.audio('music', 'assets/music.mp3');
+    //this.load.image('goal', 'assets/goal.png');
    
-
-    
-    
 }
 
 function create ()
@@ -66,7 +66,9 @@ function create ()
 
     var music = this.sound.add('music', { loop: true });
     music.play();
-    //this.music.setVolume = 0.5;
+    music.setVolume = 0.1;
+
+    
     //this.music.Loop = true;
     
 
@@ -82,6 +84,9 @@ function create ()
     //campo
     this.add.image(500, 450, 'campo');
 
+    
+   
+
    
 
 
@@ -90,7 +95,7 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
+    platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
    
 
     //Cria os jogadores
@@ -135,6 +140,9 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
+    //this.physics.add.collider(ball,b1);
+    //this.physics.add.collider(ball,b2);
+
     //this.physics.add.collider(music.play());
 
 
@@ -191,8 +199,31 @@ platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
     });
 }
 
+/*function restart_game() {
+    new Phaser.Game(config);
+}
+*/
+
+function restart_game () {
+    new Phaser.Game(config)
+}
+
 function update ()
 {
+    score = this.add.text(10, 20, gols_time_1 + " - " + gols_time_2)
+
+
+    /*if(b1.y < ball.y){
+        gols_time_1 += 1;
+       restart_game()
+    }
+
+    if(b2.y > ball.y) {
+        gols_time_2 +=1;
+        restart_game();
+    }
+    */
+
   // Verifique as teclas pressionadas para o jogador 1
   
   if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
@@ -249,9 +280,37 @@ function update ()
     }
 
 
+
+
+ 
     
+
+
+
+
     
 }
+
+
+
+/*
+function goalScored(team)
+{
+    // Add 1 to the score of the team that scored the goal
+    if (team == 1)
+    {
+        scoreText.setText('Score: 1 - 0');
+    }
+    else if (team == 2)
+    {
+        scoreText.setText('Score: 0 - 1');
+    }
+
+    // Reset the ball position to the middle of the field
+    this.ball.setPosition(400, 300);
+}
+
+*/
 
 </script>
 </body>
