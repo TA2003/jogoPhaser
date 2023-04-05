@@ -50,6 +50,7 @@ var timerEvento;
 
 
 
+
 var game = new Phaser.Game(config);
 
 
@@ -73,6 +74,7 @@ function preload ()
 
 function create ()
 {
+  
 
 
 
@@ -149,6 +151,39 @@ function create ()
 
     b2 = this.physics.add.sprite(50, 00, 'baliza1');
     b2.setCollideWorldBounds(true);
+
+
+    // Adiciona um collider entre a bola e a baliza da direita
+this.physics.add.collider(ball, b1, function() {
+    // Altera as coordenadas da bola
+    ball.x = 550;
+    ball.y = 300;
+    // Define as posições iniciais dos jogadores
+    player1.x = 250;
+    player1.y = 300;
+    player2.x = 850;
+    player2.y = 300;
+    // Adiciona 1 ao score do player1
+    gols_time_1 += 1;
+    console.log("Gol do Time 1: " + gols_time_1);
+}, null, this);
+
+
+
+// Adiciona um collider entre a bola e a baliza da esquerda
+this.physics.add.collider(ball, b2, function() {
+    // Altera as coordenadas da bola
+    ball.x = 550;
+    ball.y = 300;
+    // Define as posições iniciais dos jogadores
+    player1.x = 250;
+    player1.y = 300;
+    player2.x = 850;
+    player2.y = 300;
+    // Adiciona 1 ao score do player2
+    gols_time_2 += 1;
+    console.log("Gol do Time 2: " + gols_time_2);
+}, null, this);
     
 
     // Adiciona um collider entre a bola e a baliza da direita
