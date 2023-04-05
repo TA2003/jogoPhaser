@@ -16,15 +16,16 @@
 
 var config = {
     type: Phaser.AUTO,
-    width: 1000,
+    width: 1100,
     height: 600,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 1500},
+            gravity: { y: 1150},
             debug : false
         }
     },
+    
     scene: {
         preload: preload,
         create: create,
@@ -41,6 +42,11 @@ var b1;
 var b2;
 var gols_time_1 = 0
 var gols_time_2 = 0
+var scoreText1;
+var scoreText2;
+var tempoTexto;
+var tempoRestante = 60;
+var timerEvento;
 
 var game = new Phaser.Game(config);
 
@@ -54,6 +60,7 @@ function preload ()
     this.load.image('campo', 'assets/campoo.png');
     this.load.image('baliza', 'assets/baliza.png');
     this.load.image('baliza1', 'assets/baliza1.png');
+    this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     //this.load.image('goal', 'assets/goal.png');
    
@@ -79,10 +86,16 @@ function create ()
 
 
     //Background do jogo
-    this.add.image(500, 139, 'sky');
+    this.add.image(550, 110, 'sky');
+
+    this.add.image(555, 20, 'scoreboard');
+
+
+
+    
     
     //campo
-    this.add.image(500, 450, 'campo');
+    this.add.image(550, 450, 'campo');
 
     
    
@@ -103,32 +116,64 @@ function create ()
     player1.setCollideWorldBounds(true);
     player1.setBounce(0.3);
 
-    player2 = this.physics.add.sprite(750, 300 , 'p2');
+    player2 = this.physics.add.sprite(850, 300 , 'p2');
     player2.setCollideWorldBounds(true);
     player2.setBounce(0.3);
 
        // Cria a bola
-    ball = this.physics.add.sprite(500, 300, 'bola');
+    ball = this.physics.add.sprite(550, 300, 'bola');
     ball.setCollideWorldBounds(true);
-    ball.setBounce(0.9);
+    ball.setBounce(0.8);
+    ball.body.mass = 0.5;
 
     //Cria as balizas
 
     //Baliza Direita
 
-    b1 = this.physics.add.sprite(950, 00, 'baliza');
+    b1 = this.physics.add.sprite(1050, 00, 'baliza');
     b1.setCollideWorldBounds(true);
+    
+    
 
     //Baliza Esquerda
 
     b2 = this.physics.add.sprite(50, 00, 'baliza1');
     b2.setCollideWorldBounds(true);
+    
+
+    // Adiciona um collider entre a bola e a baliza da direita
+this.physics.add.collider(ball, b1, function() {
+    // Altera as coordenadas da bola
+    ball.x = 550;
+    ball.y = 300;
+    // Adiciona 1 ao score do player1
+    gols_time_1 += 1;
+    console.log("Gol do Time 1: " + gols_time_1);
+}, null, this);
+
+// Adiciona um collider entre a bola e a baliza da esquerda
+this.physics.add.collider(ball, b2, function() {
+    // Altera as coordenadas da bola
+    ball.x = 550;
+    ball.y = 300;
+    // Adiciona 1 ao score do player2
+    gols_time_2 += 1;
+    console.log("Gol do Time 2: " + gols_time_2);
+}, null, this);
+
+  // Cria o texto para o score do time 1
+  scoreText1 = this.add.text(390, 10, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
+
+// Cria o texto para o score do time 2
+//scoreText2 = this.add.text(984, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
+
+
 
 
     cursors = this.input.keyboard.createCursorKeys();
     
     //Adicione limites do mundo
-    this.physics.world.setBounds(0, 0, 1000, 600);
+    this.physics.world.setBounds(0, 0, 1100, 600);
     
 
     //  Collide the player and the stars with the platforms
@@ -140,6 +185,7 @@ function create ()
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
+    
     //this.physics.add.collider(ball,b1);
     //this.physics.add.collider(ball,b2);
 
@@ -197,7 +243,33 @@ function create ()
         frames: [ {key: 'p2', frame: 5}],
         frameRate: 5,
     });
+    
+    // Define o tempo do jogo
+var timeLimit = 60;
+var timeText = this.add.text(900, 16, 'Time: ' + timeLimit, { fontSize: '32px', fill: '#FFF' });
+
+
+// Define uma função para atualizar o tempo do jogo
+function updateTime() {
+timeLimit--;
+timeText.setText('Time: ' + timeLimit);
+
+if (timeLimit === 0) {
+// Termina o jogo
+console.log('Fim do jogo!');
+ball.disableBody(true, true);
+player1.disableBody(true, true);
+player2.disableBody(true, true);
+clearInterval(intervalId);
+
 }
+}
+
+// Define o intervalo de atualização do tempo do jogo
+var intervalId = setInterval(updateTime, 1000);
+
+}
+
 
 /*function restart_game() {
     new Phaser.Game(config);
@@ -210,19 +282,12 @@ function restart_game () {
 
 function update ()
 {
-    score = this.add.text(10, 20, gols_time_1 + " - " + gols_time_2)
+    //score = this.add.text(100, 10, gols_time_1 + " - " + gols_time_2)
+
+// Atualiza o texto do score do time 1
+scoreText1.setText(gols_time_1 + "               " + gols_time_2);
 
 
-    /*if(b1.y < ball.y){
-        gols_time_1 += 1;
-       restart_game()
-    }
-
-    if(b2.y > ball.y) {
-        gols_time_2 +=1;
-        restart_game();
-    }
-    */
 
   // Verifique as teclas pressionadas para o jogador 1
   
@@ -278,39 +343,23 @@ function update ()
    
         
     }
+    
+    
+   
+        
+       
+    
 
 
 
 
+
+   
  
-    
+  } 
+  
+ 
 
-
-
-
-    
-}
-
-
-
-/*
-function goalScored(team)
-{
-    // Add 1 to the score of the team that scored the goal
-    if (team == 1)
-    {
-        scoreText.setText('Score: 1 - 0');
-    }
-    else if (team == 2)
-    {
-        scoreText.setText('Score: 0 - 1');
-    }
-
-    // Reset the ball position to the middle of the field
-    this.ball.setPosition(400, 300);
-}
-
-*/
 
 </script>
 </body>
