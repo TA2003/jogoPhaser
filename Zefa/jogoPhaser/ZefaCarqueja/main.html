@@ -49,6 +49,7 @@ var tempoRestante = 60;
 var timerEvento;
 
 
+
 var game = new Phaser.Game(config);
 
 
@@ -64,7 +65,7 @@ function preload ()
     this.load.image('baliza1', 'assets/baliza1.png');
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
-    //this.load.image('goal', 'assets/goal.png');
+    this.load.image('gelo', 'assets/gelo.png');
    
 }
 
@@ -73,13 +74,7 @@ function preload ()
 function create ()
 {
 
-    /*var botao = this.add.text(400, 300, "START", {
-    font: "bold 48px Arial",
-    fill: "#ffffff",
-    });
 
-    // Adiciona um evento de clique para o botão
-    botao.setInteractive({ useHandCursor: true }).on("pointerdown", iniciarJogo);*/
 
 
     //Criar a Música Louca
@@ -360,17 +355,6 @@ scoreText1.setText(gols_time_1 + "               " + gols_time_2);
         
     }
     
-    
-   
-        
-       
-    
-
-
-
-
-
-   
  
   } 
   
