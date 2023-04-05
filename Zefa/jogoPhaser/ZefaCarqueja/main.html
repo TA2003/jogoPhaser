@@ -48,7 +48,9 @@ var tempoTexto;
 var tempoRestante = 60;
 var timerEvento;
 
+
 var game = new Phaser.Game(config);
+
 
 function preload ()
 {
@@ -66,8 +68,19 @@ function preload ()
    
 }
 
+
+
 function create ()
 {
+
+    /*var botao = this.add.text(400, 300, "START", {
+    font: "bold 48px Arial",
+    fill: "#ffffff",
+    });
+
+    // Adiciona um evento de clique para o botão
+    botao.setInteractive({ useHandCursor: true }).on("pointerdown", iniciarJogo);*/
+
 
     //Criar a Música Louca
 
@@ -96,6 +109,8 @@ function create ()
     
     //campo
     this.add.image(550, 450, 'campo');
+
+    
 
     
    
@@ -269,6 +284,7 @@ clearInterval(intervalId);
 var intervalId = setInterval(updateTime, 1000);
 
 }
+
 
 
 /*function restart_game() {
