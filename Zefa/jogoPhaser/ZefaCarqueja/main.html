@@ -67,6 +67,8 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.image('gelo', 'assets/gelo.png');
+    this.load.image('vence1', 'assets/EQUIPA1VENCE.png');
+    this.load.image('vence2', 'assets/EQUIPA2vENCE.png');
    
 }
 
@@ -310,9 +312,17 @@ clearInterval(intervalId);
 }
 }
 
+
+
 // Define o intervalo de atualização do tempo do jogo
 var intervalId = setInterval(updateTime, 1000);
-
+// Verifica quem marcou mais gols
+if (gols_time_1 > gols_time_2) {
+    this.add.text('Player 1 venceu!');
+} else if (gols_time_2 > gols_time_1) {
+  console.log('Player 2 venceu!');
+  
+}
 }
 
 
@@ -389,11 +399,13 @@ scoreText1.setText(gols_time_1 + "               " + gols_time_2);
    
         
     }
+
     
- 
-  } 
+
   
- 
+
+}
+
 
 
 </script>
