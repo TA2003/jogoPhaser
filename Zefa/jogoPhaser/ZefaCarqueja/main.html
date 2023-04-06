@@ -67,6 +67,7 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.image('gelo', 'assets/gelo.png');
+    //this.load.image('play', 'assets/play.png');
    
 }
 
@@ -74,9 +75,8 @@ function preload ()
 
 function create ()
 {
-  
 
-
+    
 
 
     //Criar a Música Louca
@@ -84,6 +84,7 @@ function create ()
     var music = this.sound.add('music', { loop: true });
     music.play();
     music.setVolume = 0.1;
+    
 
     
     //this.music.Loop = true;
@@ -314,7 +315,6 @@ clearInterval(intervalId);
 var intervalId = setInterval(updateTime, 1000);
 
 }
-
 
 
 /*function restart_game() {
