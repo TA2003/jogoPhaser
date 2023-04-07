@@ -49,7 +49,9 @@ var scoreText2;
 var tempoTexto;
 var tempoRestante = 60;
 var timerEvento;
-var isOnIce = false;
+var gelo;
+
+
 
 
 
@@ -78,11 +80,11 @@ function preload ()
 
 
 
+
 function create ()
 {
 
-    
-
+  
 
     //Criar a Música Louca
 
@@ -122,7 +124,9 @@ function create ()
     poste.create(90, 335, 'postee').setScale(2).refreshBody();
    
 
-   
+    //gelo
+    gelo = this.physics.add.staticGroup();
+    gelo.create(500, 335, 'gelo').setScale(2).refreshBody();
 
 
      //  Cria plataforma
