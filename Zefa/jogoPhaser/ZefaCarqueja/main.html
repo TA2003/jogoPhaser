@@ -38,6 +38,8 @@ var player1;
 var player2;
 var cursors;
 var platforms;
+var post;
+var poste;
 var b1;
 var b2;
 var gols_time_1 = 0
@@ -47,7 +49,7 @@ var scoreText2;
 var tempoTexto;
 var tempoRestante = 60;
 var timerEvento;
-
+var isOnIce = false;
 
 
 
@@ -60,6 +62,8 @@ function preload ()
     this.load.spritesheet('p1', 'assets/player1.png',{frameWidth: 86,frameHeight: 104});
     this.load.spritesheet('p2', 'assets/player2.png',{frameWidth: 86,frameHeight: 104});
     this.load.image('plataforma', 'assets/chao.png');
+    this.load.image('poste', 'assets/poste.png');
+    this.load.image('postee', 'assets/postee.png');
     this.load.image('sky', 'assets/stands.png');
     this.load.image('campo', 'assets/campoo.png');
     this.load.image('baliza', 'assets/baliza.png');
@@ -67,10 +71,6 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.image('gelo', 'assets/gelo.png');
-
-    this.load.image('vence1', 'assets/EQUIPA1VENCE.png');
-    this.load.image('vence2', 'assets/EQUIPA2vENCE.png');
-
     //this.load.image('play', 'assets/play.png');
 
    
@@ -113,20 +113,27 @@ function create ()
     //campo
     this.add.image(550, 450, 'campo');
 
-    
+    //Trave direita
+    post = this.physics.add.staticGroup();
+    post.create(1010, 335, 'poste').setScale(2).refreshBody();
 
-    
+    //Trave esquerda
+    poste = this.physics.add.staticGroup();
+    poste.create(90, 335, 'postee').setScale(2).refreshBody();
    
 
    
 
 
-     //  The platforms group contains the ground and the 2 ledges we can jump on
+     //  Cria plataforma
      platforms = this.physics.add.staticGroup();
 
-    //  Here we create the ground.
+    //  Cria-se o chão.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     platforms.create(400, 650, 'plataforma').setScale(2).refreshBody();
+
+
+
    
 
     //Cria os jogadores
@@ -141,7 +148,7 @@ function create ()
        // Cria a bola
     ball = this.physics.add.sprite(550, 300, 'bola');
     ball.setCollideWorldBounds(true);
-    ball.setBounce(0.8);
+    ball.setBounce(1);
     ball.body.mass = 0.5;
 
     //Cria as balizas
@@ -192,25 +199,7 @@ this.physics.add.collider(ball, b2, function() {
 }, null, this);
     
 
-    // Adiciona um collider entre a bola e a baliza da direita
-this.physics.add.collider(ball, b1, function() {
-    // Altera as coordenadas da bola
-    ball.x = 550;
-    ball.y = 300;
-    // Adiciona 1 ao score do player1
-    gols_time_1 += 1;
-    console.log("Gol do Time 1: " + gols_time_1);
-}, null, this);
-
-// Adiciona um collider entre a bola e a baliza da esquerda
-this.physics.add.collider(ball, b2, function() {
-    // Altera as coordenadas da bola
-    ball.x = 550;
-    ball.y = 300;
-    // Adiciona 1 ao score do player2
-    gols_time_2 += 1;
-    console.log("Gol do Time 2: " + gols_time_2);
-}, null, this);
+   
 
   // Cria o texto para o score do time 1
   scoreText1 = this.add.text(390, 10, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
@@ -231,11 +220,14 @@ this.physics.add.collider(ball, b2, function() {
     this.physics.add.collider(player2, platforms);
     this.physics.add.collider(player1, platforms);
     this.physics.add.collider(ball, platforms);
+    this.physics.add.collider(ball, post);
+    this.physics.add.collider(ball, poste);
     this.physics.add.collider(b1, platforms);
     this.physics.add.collider(b2, platforms);
     this.physics.add.collider(player1,player2);
     this.physics.add.collider(player1,ball);
     this.physics.add.collider(player2,ball);
+
     
     //this.physics.add.collider(ball,b1);
     //this.physics.add.collider(ball,b2);
@@ -320,14 +312,11 @@ clearInterval(intervalId);
 
 // Define o intervalo de atualização do tempo do jogo
 var intervalId = setInterval(updateTime, 1000);
-// Verifica quem marcou mais gols
-if (gols_time_1 > gols_time_2) {
-    this.add.text('Player 1 venceu!');
-} else if (gols_time_2 > gols_time_1) {
-  console.log('Player 2 venceu!');
+
+
   
 }
-}
+
 
 
 /*function restart_game() {
@@ -403,10 +392,8 @@ scoreText1.setText(gols_time_1 + "               " + gols_time_2);
         
     }
 
-    
-
   
-
+    
 }
 
 
