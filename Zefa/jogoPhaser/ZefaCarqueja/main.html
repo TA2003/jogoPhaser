@@ -74,6 +74,7 @@ function preload ()
     this.load.image('baliza1', 'assets/baliza1.png');
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
+    this.load.audio('apito', 'assets/apito.mp3');
     this.load.image('gelo', 'assets/gelo.png');
     //this.load.image('play', 'assets/play.png');
 
@@ -85,8 +86,10 @@ function preload ()
 
 function create ()
 {
-
-  
+   //apito inicial
+   function create() {
+    var apito = this.sound.add('apito');
+}
 
     //Criar a Música Louca
 
@@ -170,7 +173,7 @@ function create ()
 
     //Baliza Direita
 
-    b1 = this.physics.add.sprite(1050, 00, 'baliza');
+   b1 = this.physics.add.sprite(1050, 00, 'baliza');
     b1.setCollideWorldBounds(true);
    
    
