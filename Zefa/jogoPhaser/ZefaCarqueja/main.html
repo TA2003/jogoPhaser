@@ -50,6 +50,8 @@ var tempoTexto;
 var tempoRestante = 60;
 var timerEvento;
 var gelo;
+var isPlayer1Frozen = false;
+var isPlayer2Frozen = false;
 
 
 
@@ -88,9 +90,9 @@ function create ()
 
     //Criar a Música Louca
 
-    var music = this.sound.add('music', { loop: true });
+   /* var music = this.sound.add('music', { loop: true });
     music.play();
-    music.setVolume = 0.1;
+    music.setVolume = 0.1; */
     
 
     
@@ -117,16 +119,25 @@ function create ()
 
     //Trave direita
     post = this.physics.add.staticGroup();
-    post.create(1010, 335, 'poste').setScale(2).refreshBody();
+    post.create(1010, 330, 'poste').setScale(2).refreshBody();
 
     //Trave esquerda
     poste = this.physics.add.staticGroup();
-    poste.create(90, 335, 'postee').setScale(2).refreshBody();
+    poste.create(90, 330, 'postee').setScale(2).refreshBody();
    
 
     //gelo
     gelo = this.physics.add.staticGroup();
-    gelo.create(500, 335, 'gelo').setScale(2).refreshBody();
+    
+    //Faz o gelo aparecer aos 30 segundos
+    setTimeout(() => {
+        gelo.create(500, 350, 'gelo').setScale(2).refreshBody();
+    }, 30000);
+
+
+
+
+
 
 
      //  Cria plataforma
@@ -153,7 +164,7 @@ function create ()
     ball = this.physics.add.sprite(550, 300, 'bola');
     ball.setCollideWorldBounds(true);
     ball.setBounce(1);
-    ball.body.mass = 0.5;
+    ball.body.mass = 0.4;
 
     //Cria as balizas
 
@@ -161,6 +172,8 @@ function create ()
 
     b1 = this.physics.add.sprite(1050, 00, 'baliza');
     b1.setCollideWorldBounds(true);
+   
+   
     
     
 
@@ -168,6 +181,7 @@ function create ()
 
     b2 = this.physics.add.sprite(50, 00, 'baliza1');
     b2.setCollideWorldBounds(true);
+    
 
 
     // Adiciona um collider entre a bola e a baliza da direita
@@ -317,9 +331,29 @@ clearInterval(intervalId);
 // Define o intervalo de atualização do tempo do jogo
 var intervalId = setInterval(updateTime, 1000);
 
+//Gelo
+this.physics.add.collider(player2, gelo, function() {
+        isPlayer1Frozen = true; // define a variável de controle como true quando ocorre a colisão
+        setTimeout(function() {
+                isPlayer1Frozen = false;
+                gelo.clear(true, true); 
+            }, 3000); // congela o player 1 durante 3 segundos
+        
+    }, null, this);
+
+    this.physics.add.collider(player1, gelo, function() {
+        isPlayer2Frozen = true; // define a variável de controlo como true quando ocorre a colisão
+        setTimeout(function() {
+                isPlayer2Frozen = false;
+                gelo.clear(true, true); 
+            }, 3000); // congela o player 1 durante 3 segundos
+        
+    }, null, this);
+}
+
 
   
-}
+
 
 
 
@@ -333,7 +367,10 @@ function restart_game () {
 }
 
 function update ()
+
 {
+
+
     //score = this.add.text(100, 10, gols_time_1 + " - " + gols_time_2)
 
 // Atualiza o texto do score do time 1
@@ -394,6 +431,14 @@ scoreText1.setText(gols_time_1 + "               " + gols_time_2);
        
    
         
+    }
+    if (isPlayer1Frozen) {
+        player1.body.velocity.x = 0;
+        player1.body.velocity.y = 0;
+    }
+    if (isPlayer2Frozen) {
+        player2.body.velocity.x = 0;
+        player2.body.velocity.y = 0;
     }
 
   
