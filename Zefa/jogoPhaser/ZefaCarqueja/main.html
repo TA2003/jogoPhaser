@@ -119,16 +119,16 @@ function create ()
 
     //Trave direita
     post = this.physics.add.staticGroup();
-    post.create(1010, 330, 'poste').setScale(2).refreshBody();
+    post.create(1008, 330, 'poste').setScale(2).refreshBody();
 
     //Trave esquerda
     poste = this.physics.add.staticGroup();
-    poste.create(90, 330, 'postee').setScale(2).refreshBody();
+    poste.create(92, 330, 'postee').setScale(2).refreshBody();
    
 
     //gelo
     gelo = this.physics.add.staticGroup();
-    
+
     //Faz o gelo aparecer aos 30 segundos
     setTimeout(() => {
         gelo.create(500, 350, 'gelo').setScale(2).refreshBody();
