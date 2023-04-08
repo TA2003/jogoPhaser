@@ -111,7 +111,7 @@ function create ()
     //Background do jogo
     this.add.image(550, 110, 'sky');
 
-    this.add.image(555, 20, 'scoreboard');
+    this.add.image(555, 40, 'scoreboard');
 
 
 
@@ -223,7 +223,7 @@ this.physics.add.collider(ball, b2, function() {
    
 
   // Cria o texto para o score do time 1
-  scoreText1 = this.add.text(390, 4, 'Score: 0', { fontSize: '32px', fill: '#000'
+  scoreText1 = this.add.text(520, 32, 'Score: 0', { fontSize: '36px', fill: '#fff'
     ,fontFamily: 'Impact'});
 
 // Cria o texto para o score do time 2
@@ -311,13 +311,13 @@ this.physics.add.collider(ball, b2, function() {
     
     // Define o tempo do jogo
 var timeLimit = 60;
-var timeText = this.add.text(900, 16, 'Time: ' + timeLimit, { fontSize: '32px', fill: '#FFF' });
+var timeText = this.add.text(540, 1, '0: ' + timeLimit, { fontSize: '21px', fill: '#FFF' ,fontFamily:'Inpact'});
 
 
 // Define uma função para atualizar o tempo do jogo
 function updateTime() {
 timeLimit--;
-timeText.setText('Time: ' + timeLimit);
+timeText.setText('0:' + timeLimit);
 
 if (timeLimit === 0) {
 // Termina o jogo
@@ -378,7 +378,7 @@ function update ()
     //score = this.add.text(100, 10, gols_time_1 + " - " + gols_time_2)
 
 // Atualiza o texto do score do time 1
-scoreText1.setText(gols_time_1 + "                                                    " + gols_time_2);
+scoreText1.setText(gols_time_1 +   "      " + gols_time_2);
 
 
 
