@@ -223,7 +223,8 @@ this.physics.add.collider(ball, b2, function() {
    
 
   // Cria o texto para o score do time 1
-  scoreText1 = this.add.text(390, 10, 'Score: 0', { fontSize: '32px', fill: '#FFF' });
+  scoreText1 = this.add.text(390, 4, 'Score: 0', { fontSize: '32px', fill: '#000'
+    ,fontFamily: 'Impact'});
 
 // Cria o texto para o score do time 2
 //scoreText2 = this.add.text(984, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
@@ -377,7 +378,7 @@ function update ()
     //score = this.add.text(100, 10, gols_time_1 + " - " + gols_time_2)
 
 // Atualiza o texto do score do time 1
-scoreText1.setText(gols_time_1 + "               " + gols_time_2);
+scoreText1.setText(gols_time_1 + "                                                    " + gols_time_2);
 
 
 
