@@ -75,6 +75,7 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.audio('apito', 'assets/apito.mp3');
+    this.load.audio('apitofinal', 'assets/apitofinal.mp3');
     this.load.audio('som', 'assets/som.mp3');
     this.load.image('gelo', 'assets/gelo.png');
     //this.load.image('play', 'assets/play.png');
@@ -90,15 +91,24 @@ function create ()
     var apito = this.sound.add('apito');
     this.time.delayedCall(500, function() {
         apito.play();
-        som.volume = 0.1; // Definir volume para 20%
+        som.volume = 0.1; // Definir volume para 10%
     }, [], this);
 
     var som = this.sound.add('som');
     this.time.delayedCall(500, function() {
         som.play();
-        som.volume = 0.1; // Definir volume para 20%
+        som.volume = 0.1; // Definir volume para 10%
         
     }, [], this);
+
+    var apitofinal = this.sound.add('apitofinal');
+    this.time.delayedCall(59000, function() {
+        apitofinal.play();
+        som.volume = 0.1; // Definir volume para 10%
+    }, [], this);
+    
+
+
 
 
     //Criar a Música Louca
