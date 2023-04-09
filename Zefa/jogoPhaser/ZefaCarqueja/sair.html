@@ -22,35 +22,37 @@
         }
 
         h1 {
-            font-family: 'Gameplay', sans-serif;
-            font-size: 72px;
-            margin-bottom: 0px;
-            margin-top: 0; /* adicionado para definir a margem superior para 0 */
-        }
+    font-family: 'Gameplay', sans-serif;
+    font-size: 72px;
+    margin-bottom: 0px;
+    margin-top: -80px; /* adicionado para definir a margem superior para -50px */
+}
 
-        .button {
-            font-size: 24px;
-            padding: 20px;
-            background-color: #eaa400;
-            color: #000000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Gameplay', sans-serif;
-            width: 200px;
-            margin-top: 20px; /* adicionado para definir a margem superior do botão */
-        }
+.button {
+    font-size: 24px;
+    padding: 20px;
+    background-color: #eaa400;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Gameplay', sans-serif;
+    width: 200px;
+    margin-top: 30px; /* adicionado para definir a margem superior do botão para -30px */
+}
+
+
 
 
     </style>
 </head>
 
 <body>
+    <audio src="assets/musica.mp3" autoplay loop volume="0.1"></audio>
 
-
-    <h1>OBRIGADO PELO JOGO</h1>
+    <h1>OBRIGADO POR JOGAR</h1>
     <button id="exit-button" class="button">MAIN MENU</button>
 
     <script src="phaser.min.js"></script>
