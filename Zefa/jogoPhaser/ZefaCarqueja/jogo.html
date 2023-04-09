@@ -2,14 +2,17 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Pixel Pitch</title>
     <style>
+        @font-face {
+            font-family: 'Gameplay';
+            src: url('assets/gameplay.ttf') format('truetype');
+        }
+
         body {
             background-image: url('assets/menu.png');
             background-size: cover;
@@ -22,18 +25,20 @@
 
 
         #play-button {
-            
             margin: 0 auto;
             position: absolute;
-            top: 250px;
-            padding: 30px;
-            background-color: #ffffff;
+            font-size: 24px;
+            top: 180px;
+            padding: 20px;
+            background-color: #eaa400;
             color: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 10px;
             cursor: pointer;
+            font-family: 'Gameplay', sans-serif;
+            width: 200px; /* adicionado para definir a largura do botão */
         }
 
         
@@ -48,7 +53,6 @@
     <script>
         document.getElementById("play-button").addEventListener("click", function(){
             window.location.href = "main.html";
-
         });
     </script>
    
