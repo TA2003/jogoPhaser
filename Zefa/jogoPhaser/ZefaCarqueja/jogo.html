@@ -1,7 +1,4 @@
 
-
-
-
 <!DOCTYPE html>
 <html>
 
@@ -17,18 +14,23 @@
             background-image: url('assets/menu.png');
             background-size: cover;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 0px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh; /* adicionado para definir a altura da página */
         }
 
+        h1 {
+            font-family: 'Gameplay', sans-serif;
+            font-size: 72px;
+            margin-bottom: 0px;
+            margin-top: 0; /* adicionado para definir a margem superior para 0 */
+        }
 
-        #play-button {
-            margin: 0 auto;
-            position: absolute;
+        .button {
             font-size: 24px;
-            top: 180px;
             padding: 20px;
             background-color: #eaa400;
             color: #000000;
@@ -38,24 +40,41 @@
             border-radius: 10px;
             cursor: pointer;
             font-family: 'Gameplay', sans-serif;
-            width: 200px; /* adicionado para definir a largura do botão */
+            width: 200px;
+            margin-top: 20px; /* adicionado para definir a margem superior do botão */
         }
 
-        
+        #play-button {
+            margin-bottom: 20px; /* adicionado para definir a margem inferior do botão */
+        }
+
     </style>
 </head>
 
 <body>
+
+
     <h1>Pixel Pitch</h1>
-    <button id="play-button" href="main.html">Jogar</button>
+    <button id="play-button" class="button" href="main.html">Jogar</button>
+    <button id="instructions-button" class="button">Instruções</button>
+    <button id="exit-button" class="button">Sair</button>
+
     <script src="phaser.min.js"></script>
     <script src="main.html"></script>
     <script>
         document.getElementById("play-button").addEventListener("click", function(){
             window.location.href = "main.html";
         });
+
+        document.getElementById("instructions-button").addEventListener("click", function(){
+            // adicione o código para abrir as instruções aqui
+            
+        });
+
+        document.getElementById("exit-button").addEventListener("click", function(){
+            // adicione o código para sair aqui
+        });
     </script>
-   
 </body>
 
 </html>
