@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-    <title>Zefa Carqueja</title>
+    <title>Pixel Pitch</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
@@ -27,6 +27,7 @@ var config = {
     },
     
     scene: {
+        
         preload: preload,
         create: create,
         update: update
@@ -88,19 +89,22 @@ function preload ()
 
 function create ()
 {
+    //Apito Inicial
     var apito = this.sound.add('apito');
     this.time.delayedCall(500, function() {
         apito.play();
         som.volume = 0.1; // Definir volume para 10%
     }, [], this);
-
+    
+    //Atmosfera
     var som = this.sound.add('som');
     this.time.delayedCall(500, function() {
         som.play();
         som.volume = 0.1; // Definir volume para 10%
         
     }, [], this);
-
+    
+    //Apito Final
     var apitofinal = this.sound.add('apitofinal');
     this.time.delayedCall(59000, function() {
         apitofinal.play();
