@@ -2,7 +2,7 @@
 <html lang="en"> 
 <head> 
     <meta charset="UTF-8" />
-    <title>Zefa Carqueja</title>
+    <title>Pixel Pitch</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
@@ -28,6 +28,7 @@ var config = {
     },
     
     scene: {
+        
         preload: preload,
         create: create,
         update: update
@@ -52,6 +53,7 @@ var tempoTexto;
 var tempoRestante = 60;
 var timerEvento;
 var gelo;
+var juiz;
 var isPlayer1Frozen = false;
 var isPlayer2Frozen = false;
 
@@ -77,8 +79,10 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.audio('apito', 'assets/apito.mp3');
+    this.load.audio('apitofinal', 'assets/apitofinal.mp3');
     this.load.audio('som', 'assets/som.mp3');
     this.load.image('gelo', 'assets/gelo.png');
+    this.load.image('juiz', 'assets/juiz.png');
     //this.load.image('play', 'assets/play.png');
 
    
@@ -89,18 +93,30 @@ function preload ()
 
 function create ()
 {
+    //Apito Inicial
     var apito = this.sound.add('apito');
     this.time.delayedCall(500, function() {
         apito.play();
-        som.volume = 0.1; // Definir volume para 20%
+        som.volume = 0.1; // Definir volume para 10%
     }, [], this);
-
+    
+    //Atmosfera
     var som = this.sound.add('som');
     this.time.delayedCall(500, function() {
         som.play();
-        som.volume = 0.1; // Definir volume para 20%
+        som.volume = 0.1; // Definir volume para 10%
         
     }, [], this);
+    
+    //Apito Final
+    var apitofinal = this.sound.add('apitofinal');
+    this.time.delayedCall(59000, function() {
+        apitofinal.play();
+        som.volume = 0.1; // Definir volume para 10%
+    }, [], this);
+    
+
+
 
 
     //Criar a Música Louca
@@ -141,13 +157,22 @@ function create ()
     poste.create(92, 330, 'postee').setScale(2).refreshBody();
    
 
-    //gelo
+    //Cheat gelo
     gelo = this.physics.add.staticGroup();
 
     //Faz o gelo aparecer aos 30 segundos
     setTimeout(() => {
-        gelo.create(500, 350, 'gelo').setScale(2).refreshBody();
+        gelo.create(550, 350, 'gelo').setScale(2).refreshBody();
     }, 30000);
+
+    //Cheat juiz
+    juiz = this.physics.add.staticGroup();
+
+//Faz o gelo aparecer aos 10 segundos
+setTimeout(() => {
+    juiz.create(550, 350, 'juiz').setScale(2).refreshBody();
+}, 55000);
+
 
 
 
@@ -178,8 +203,8 @@ function create ()
        // Cria a bola
     ball = this.physics.add.sprite(550, 300, 'bola');
     ball.setCollideWorldBounds(true);
-    ball.setBounce(1);
-    ball.body.mass = 0.4;
+    ball.setBounce(0.8);
+    ball.body.mass = 0.5;
 
     //Cria as balizas
 
@@ -347,6 +372,40 @@ clearInterval(intervalId);
 // Define o intervalo de atualização do tempo do jogo
 var intervalId = setInterval(updateTime, 1000);
 
+
+ 
+//Juiz
+  this.physics.add.collider(player1, juiz, function() {
+    //Aumenta o score do jogador 1 em 1 unidade a cada segundo que a colisão estiver ocorrendo
+    let scoreInterval = setInterval(function() {
+      gols_time_1++;
+      scoreText1.setText('Time 1: ' + gols_time_1);
+    }, 100);
+    
+    //Remove o evento de colisão após 5 segundos
+    setTimeout(function() {
+        juiz.clear(true, true);
+      clearInterval(scoreInterval);
+    }, 1000);
+  });
+
+  this.physics.add.collider(player2, juiz, function() {
+    //Aumenta o score do jogador 2 em 1 unidade a cada segundo que a colisão estiver ocorrendo
+    let scoreInterval = setInterval(function() {
+      gols_time_2++;
+      scoreText2.setText('Time 2: ' + gols_time_2);
+    }, 100);
+    
+    //Remove o evento de colisão após 5 segundos
+    setTimeout(function() {
+        juiz.clear(true, true);
+      clearInterval(scoreInterval);
+    }, 1000);
+  });
+
+
+
+
 //Gelo
 this.physics.add.collider(player2, gelo, function() {
         isPlayer1Frozen = true; // define a variável de controle como true quando ocorre a colisão
@@ -365,6 +424,8 @@ this.physics.add.collider(player2, gelo, function() {
             }, 3000); // congela o player 1 durante 3 segundos
         
     }, null, this);
+
+   
 }
 
 
@@ -446,8 +507,25 @@ scoreText1.setText(gols_time_1 +   "      " + gols_time_2);
     }
        
    
+ 
         
     }
+    //Cheat Juiz
+    this.physics.add.overlap(player1, juiz, function() {
+        // Aumentar o score em 1
+        gols_time_1++;
+        // Atualizar o texto do score
+        scoreText1.setText('Time A: ' + gols_time_1);
+    }, null, this);
+
+    this.physics.add.overlap(player2, juiz, function() {
+        // Aumentar o score em 1
+        gols_time_2++;
+        // Atualizar o texto do score
+        scoreText2.setText('Time B: ' + gols_time_2);
+    }, null, this);
+
+    //Cheat Gelo
     if (isPlayer1Frozen) {
         player1.body.velocity.x = 0;
         player1.body.velocity.y = 0;
