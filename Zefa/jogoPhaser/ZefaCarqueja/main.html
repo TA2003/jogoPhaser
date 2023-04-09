@@ -75,6 +75,7 @@ function preload ()
     this.load.image('scoreboard', 'assets/templateScore.png');
     this.load.audio('music', 'assets/music.mp3');
     this.load.audio('apito', 'assets/apito.mp3');
+    this.load.audio('som', 'assets/som.mp3');
     this.load.image('gelo', 'assets/gelo.png');
     //this.load.image('play', 'assets/play.png');
 
@@ -86,14 +87,23 @@ function preload ()
 
 function create ()
 {
-   //apito inicial
-   function create() {
     var apito = this.sound.add('apito');
-}
+    this.time.delayedCall(500, function() {
+        apito.play();
+        som.volume = 0.1; // Definir volume para 20%
+    }, [], this);
+
+    var som = this.sound.add('som');
+    this.time.delayedCall(500, function() {
+        som.play();
+        som.volume = 0.1; // Definir volume para 20%
+        
+    }, [], this);
+
 
     //Criar a Música Louca
 
-   /* var music = this.sound.add('music', { loop: true });
+   /*var music = this.sound.add('music', { loop: true });
     music.play();
     music.setVolume = 0.1; */
     
